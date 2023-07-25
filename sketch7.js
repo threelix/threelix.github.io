@@ -19,6 +19,7 @@ function preload() {
 
 function setup() {
   img = loadImage('https://static.wixstatic.com/media/0d8a8d_533649ea02d9434b80b2bda65de5e75f~mv2.png');
+  img.resize(window.innerWidth,window.innerHeight);
   col = color(255,255,255,0);
   
   createMetaTag();
@@ -26,7 +27,7 @@ function setup() {
   button.style('background-color',col);
   button.style('border-color',col);
   button.style('font-size', '0px');
-  button.position(window.innerWidth/2,window.innerHeight/2);
+  button.position(0,0);
   button.size(window.innerWidth,window.innerHeight);
   button.mousePressed(toggleVid); // attach button listener
   
@@ -97,9 +98,9 @@ function toggleVid() {
 }
 
 function createMetaTag() {
-  let meta = createElement('meta');
-  meta.attribute('name', 'viewport');
-  meta.attribute('content', 'user-scalable=no,initial-scale=1,maximum-scale=1,minimum-scale=1,width=device-width,height=device-height');
-  let head = select('head');
-  meta.parent(head);
+	let meta = createElement('meta');
+	meta.attribute('name', 'viewport');
+	meta.attribute('content', 'user-scalable=no,initial-scale=1,maximum-scale=1,minimum-scale=1,width=device-width,height=device-height');
+	let head = select('head');
+	meta.parent(head);
 }
