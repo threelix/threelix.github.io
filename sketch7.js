@@ -26,8 +26,8 @@ function setup() {
   button = createButton('CLICK');
   button.style('background-color',col);
   button.style('border-color',col);
-  button.style('font-size', '0px');
-  button.position(0,0);
+  button.style('font-size', '50px');
+  button.position(0,0,'fixed');
   button.size(window.innerWidth,window.innerHeight);
   button.mousePressed(toggleVid); // attach button listener
   
@@ -60,7 +60,7 @@ function setup() {
   
   let canvas = createCanvas(window.innerWidth, window.innerHeight, WEBGL);
   canvas.id('p5canvas');  
-  imageMode(CENTER);
+  //imageMode(CENTER);
   
   vid.id('p5video');
   vid.elt.setAttribute('playsinline', '');
@@ -84,18 +84,18 @@ function draw() {
   hRatio = height / img.height;
   hi = img.height * hRatio;
   wi = img.width * hRatio;
-  image(img, -width/2, -height/2, wi/2, hi/2);
+  image(img, 0, 0, wi/2, hi/2);
 }
 
 function toggleVid() {
   if (playing) {
     vid.pause();
-    button.html('play');
+    button.html('CLICK');
     opacity = 256;
   } else {
     vid.loop();
     vid.hide();
-    button.html('pause');
+    button.html('');
     opacity = 0;
   }
   playing = !playing;
