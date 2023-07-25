@@ -84,7 +84,7 @@ function draw() {
   hRatio = height / img.height;
   hi = img.height * hRatio;
   wi = img.width * hRatio;
-  image(img, 0, 0, wi, hi);
+  image(img, -width/2, -height/2, wi, hi);
 }
 
 function toggleVid() {
