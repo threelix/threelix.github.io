@@ -80,7 +80,7 @@ function setup() {
 
 function draw() {
   tint(256,opacity);
-  image(img, 0, 0);
+  image(img,-window.innerWidth/2,-window.innerHeight/2);
 }
 
 function toggleVid() {
