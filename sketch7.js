@@ -5,7 +5,6 @@ let button;
 var eff1;
 var eff2;
 var w;
-let wi, hi;
 
 let img;
 var opacity;
@@ -16,7 +15,6 @@ var vid;
 function preload() {
   vid = createVideo(['https://video.wixstatic.com/video/0d8a8d_2da00668ac3e4a21a84d6c590427715b/1080p/mp4/file.mp4']);
   vid.hide();
-  //img = loadImage('https://static.wixstatic.com/media/0d8a8d_533649ea02d9434b80b2bda65de5e75f~mv2.png');
   }
 
 function setup() {
@@ -81,10 +79,6 @@ function setup() {
 
 function draw() {
   tint(256,opacity);    
-  //hRatio = height / img.height;
-  //hi = img.height * hRatio;
-  //wi = img.width * hRatio;
-  //image(img, 0, 0, wi/2, hi/2);
 }
 
 function toggleVid() {
@@ -102,9 +96,9 @@ function toggleVid() {
 }
 
 function createMetaTag() {
-	let meta = createElement('meta');
-	meta.attribute('name', 'viewport');
-	meta.attribute('content', 'user-scalable=no,initial-scale=1,maximum-scale=1,minimum-scale=1,width=device-width,height=device-height');
-	let head = select('head');
-	meta.parent(head);
+  let meta = createElement('meta');
+  meta.attribute('name', 'viewport');
+  meta.attribute('content', 'user-scalable=no,initial-scale=1,maximum-scale=1,minimum-scale=1,width=device-width,height=device-height');
+  let head = select('head');
+  meta.parent(head);
 }

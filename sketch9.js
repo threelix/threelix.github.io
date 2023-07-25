@@ -18,15 +18,14 @@ function preload() {
   }
 
 function setup() {
-  img = loadImage('https://static.wixstatic.com/media/0d8a8d_ccc15a6898ac4a0cbb894770604ddb5e~mv2.png');
   col = color(255,255,255,0);
   
   createMetaTag();
   button = createButton('CLICK');
   button.style('background-color',col);
   button.style('border-color',col);
-  button.style('font-size', '0px');
-  button.position(window.innerWidth/2,window.innerHeight/2);
+  button.style('font-size', '50px');
+  button.position(0,0);
   button.size(window.innerWidth,window.innerHeight);
   button.mousePressed(toggleVid); // attach button listener
   
@@ -59,6 +58,7 @@ function setup() {
   
   let canvas = createCanvas(window.innerWidth, window.innerHeight, WEBGL);
   canvas.id('p5canvas');  
+  //imageMode(CENTER);
   
   vid.id('p5video');
   vid.elt.setAttribute('playsinline', '');
@@ -78,19 +78,18 @@ function setup() {
 }
 
 function draw() {
-  tint(256,opacity);
-  image(img, 0, 0);
+  tint(256,opacity);    
 }
 
 function toggleVid() {
   if (playing) {
     vid.pause();
-    button.html('play');
+    button.html('CLICK');
     opacity = 256;
   } else {
     vid.loop();
     vid.hide();
-    button.html('pause');
+    button.html('');
     opacity = 0;
   }
   playing = !playing;
