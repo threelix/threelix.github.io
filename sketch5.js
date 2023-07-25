@@ -22,7 +22,7 @@ function setup() {
   button.mousePressed(toggleVid); // attach button listener
   
 //Websocket
-  let ws = new WebSocket('wss://data-3lix.onrender.com:443');
+  let ws = new WebSocket('wss://threelix.onrender.com:443');
 
   ws.addEventListener('open', (event) => {
     console.log('websocket opened')
