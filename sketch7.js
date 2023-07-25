@@ -5,6 +5,7 @@ let button;
 var eff1;
 var eff2;
 var w;
+let wi, hi;
 
 let img;
 var opacity;
@@ -15,11 +16,10 @@ var vid;
 function preload() {
   vid = createVideo(['https://video.wixstatic.com/video/0d8a8d_2da00668ac3e4a21a84d6c590427715b/1080p/mp4/file.mp4']);
   vid.hide();
+  img = loadImage('https://static.wixstatic.com/media/0d8a8d_533649ea02d9434b80b2bda65de5e75f~mv2.png');
   }
 
 function setup() {
-  img = loadImage('https://static.wixstatic.com/media/0d8a8d_533649ea02d9434b80b2bda65de5e75f~mv2.png');
-  img.resize(window.innerWidth,window.innerHeight);
   col = color(255,255,255,0);
   
   createMetaTag();
@@ -60,6 +60,7 @@ function setup() {
   
   let canvas = createCanvas(window.innerWidth, window.innerHeight, WEBGL);
   canvas.id('p5canvas');  
+  imageMode(CENTER);
   
   vid.id('p5video');
   vid.elt.setAttribute('playsinline', '');
@@ -80,7 +81,25 @@ function setup() {
 
 function draw() {
   tint(256,opacity);
-  image(img,-window.innerWidth/2,-window.innerHeight/2);
+  //image(img,-window.innerWidth/2,-window.innerHeight/2);
+    
+  // Vertical
+  if (img.height > img.width) {
+    hRatio = height / img.height;
+    hi = img.height * hRatio;
+    wi = img.width * hRatio;
+    image(img, width / 2, height / 2, wi, hi);
+    // Horizontal
+  } else if (img.width > img.height) {
+    let wRatio = width / img.width;
+    wi = img.width * wRatio;
+    hi = img.height * wRatio;
+    image(img, width / 2, height / 2, wi, hi);
+   // 1:1
+  } else {
+    image(img, width/2, height/2, width, height);
+  }
+
 }
 
 function toggleVid() {
