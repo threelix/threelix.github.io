@@ -27,7 +27,7 @@ function setup() {
   button.style('background-color',col);
   button.style('border-color',col);
   button.style('font-size', '50px');
-  button.position(0,0,'fixed');
+  button.position(0,0);
   button.size(window.innerWidth,window.innerHeight);
   button.mousePressed(toggleVid); // attach button listener
   
@@ -84,7 +84,7 @@ function draw() {
   hRatio = height / img.height;
   hi = img.height * hRatio;
   wi = img.width * hRatio;
-  image(img, 0, 0, wi/2, hi/2);
+  //image(img, 0, 0, wi/2, hi/2);
 }
 
 function toggleVid() {
