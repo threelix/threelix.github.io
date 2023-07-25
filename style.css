@@ -10,6 +10,5 @@ button{
 }
 
 canvas {
-  display: block;
-  text-align: right;
+  display: inline;
 }
