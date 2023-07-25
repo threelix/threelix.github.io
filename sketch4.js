@@ -1,12 +1,14 @@
 let seriously;
 let capture;
-var slider1;
-var slider3;
 let playing = false;
 let button;
 var eff1;
 var eff2;
 var w;
+
+let img;
+var opacity;
+let col;
 
 var vid;
 
@@ -16,12 +18,18 @@ function preload() {
   }
 
 function setup() {
+  img = loadImage('https://static.wixstatic.com/media/0d8a8d_bb9d9d1b6dd94a1983d8b43adbec0328~mv2.png');
+  col = color(255,255,255,0);
   
   createMetaTag();
-  button = createButton('play');
+  button = createButton('CLICK');
+  button.style('background-color',col);
+  button.style('border-color',col);
+  button.style('font-size', '0px');
+  button.position(window.innerWidth/2,window.innerHeight/2);
+  button.size(window.innerWidth,window.innerHeight);
   button.mousePressed(toggleVid); // attach button listener
   
-//Websocket
   let ws = new WebSocket('wss://threelix.onrender.com:443');
 
   ws.addEventListener('open', (event) => {
@@ -49,20 +57,12 @@ function setup() {
     console.log('websocket closed')
   });
   
-  
   let canvas = createCanvas(window.innerWidth, window.innerHeight, WEBGL);
   canvas.id('p5canvas');  
   
-  //registerPreloadMethod(createVideo);
-  //vid.crossOrigin = "anonymous";
   vid.id('p5video');
   vid.elt.setAttribute('playsinline', '');
-  vid.speed(1); //max3
-  
-  //slider1 = createSlider(0, 0.2, 0, 0.01);
-  //slider1.id('effect-slider1');
-  //slider3 = createSlider(-3, 3, 0, 0.01);
-  //slider3.id('effect-slider3');
+  vid.speed(1);
   
   seriously = new Seriously();
   
@@ -70,11 +70,7 @@ function setup() {
   let target = seriously.target('#p5canvas');
   
   var effect = seriously.effect('tvglitch');
-  //effect.distortion = 1;
-  //effect.distortion = '#effect-slider1';
   effect.scanLines = 0;
-  //effect.lineSync = 0;
-  //effect.lineSync = '#effect-slider3';
   effect.source = src;
   target.source = effect;
   
@@ -82,34 +78,28 @@ function setup() {
 }
 
 function draw() {
-  //let img = vid.get();
-  //image(img, 0, 0); // redraws the video frame by frame in p5
-  //image(vid2,0,0); 
-  //poner la letra PNG al abrir la pagina y ocultar / solo la primera vez
-  // conectar efecto 1 y 3 con la velocidad del viento
+  tint(256,opacity);
+  image(img, 0, 0);
 }
 
 function toggleVid() {
   if (playing) {
     vid.pause();
     button.html('play');
+    opacity = 256;
   } else {
     vid.loop();
     vid.hide();
     button.html('pause');
+    opacity = 0;
   }
   playing = !playing;
 }
 
 function createMetaTag() {
-	let meta = createElement('meta');
-	meta.attribute('name', 'viewport');
-	meta.attribute('content', 'user-scalable=no,initial-scale=1,maximum-scale=1,minimum-scale=1,width=device-width,height=device-height');
-	let head = select('head');
-	meta.parent(head);
+  let meta = createElement('meta');
+  meta.attribute('name', 'viewport');
+  meta.attribute('content', 'user-scalable=no,initial-scale=1,maximum-scale=1,minimum-scale=1,width=device-width,height=device-height');
+  let head = select('head');
+  meta.parent(head);
 }
-/*
-function windowResized() {
-  resizeCanvas((windowHeight-50)*9/16, windowHeight-50);
-}
-*/
