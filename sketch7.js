@@ -80,26 +80,11 @@ function setup() {
 }
 
 function draw() {
-  tint(256,opacity);
-  //image(img,-window.innerWidth/2,-window.innerHeight/2);
-    
-  // Vertical
-  if (img.height > img.width) {
-    hRatio = height / img.height;
-    hi = img.height * hRatio;
-    wi = img.width * hRatio;
-    image(img, width / 2, height / 2, wi, hi);
-    // Horizontal
-  } else if (img.width > img.height) {
-    let wRatio = width / img.width;
-    wi = img.width * wRatio;
-    hi = img.height * wRatio;
-    image(img, width / 2, height / 2, wi, hi);
-   // 1:1
-  } else {
-    image(img, width/2, height/2, width, height);
-  }
-
+  tint(256,opacity);    
+  hRatio = height / img.height;
+  hi = img.height * hRatio;
+  wi = img.width * hRatio;
+  image(img, 0, 0, wi, hi);
 }
 
 function toggleVid() {
