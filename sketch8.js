@@ -25,6 +25,7 @@ function setup() {
   button.style('background-color',col);
   button.style('border-color',col);
   button.style('font-size', '50px');
+  button.style('color', 'pink');
   button.position(0,0);
   button.size(window.innerWidth,window.innerHeight);
   button.mousePressed(toggleVid); // attach button listener
