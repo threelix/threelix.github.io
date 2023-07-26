@@ -81,7 +81,7 @@ function setup() {
 
 function draw() {
   tint(256,opacity);    
-  imageMode(CENTER);
+  //imageMode(CENTER);
   image(img,0,0,150*936/448,150);
 }
 
