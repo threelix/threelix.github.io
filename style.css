@@ -5,10 +5,31 @@ html, body {
 }
 
 button{
-  color: red;
-  text-align: center;
+  text: center;
+  font-family: StretchedStrung;
 }
 
 canvas {
-  display: block;
+  display: inline;
 }
+
+ @font-face {
+        font-family: 'StretchedStrung';
+        font-weight: 400;
+        font-stretch: normal;
+        src: url('Stretched-Strung.ttf') format('truetype');
+        font-style: normal;
+      }
+
+      body {
+        font-family: 'NewgroundsFont';
+        font-size: 40px;
+      }
+
+      .hidden {
+        visibility: hidden;
+        position: absolute;
+        overflow: hidden;
+        width: 0;
+        height: 0;
+      }
