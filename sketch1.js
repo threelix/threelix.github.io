@@ -15,7 +15,7 @@ var vid;
 function preload() {
   vid = createVideo(['https://video.wixstatic.com/video/0d8a8d_63cc7e73e9b2432c98f9967a266a4726/1080p/mp4/file.mp4']);
   vid.hide();
-  img = loadImage('Click1.png');
+  //img = loadImage('Click1.png');
   }
 
 function setup() {
@@ -25,7 +25,7 @@ function setup() {
   button = createButton('CLICK');
   button.style('background-color',col);
   button.style('border-color',col);
-  button.style('font-size', '10px');
+  button.style('font-size', '50px');
   button.style('color', 'orange');
   button.position(0,0);
   button.size(window.innerWidth,window.innerHeight);
@@ -82,7 +82,7 @@ function setup() {
 function draw() {
   tint(256,opacity);    
   //imageMode(CENTER);
-  image(img,0,0,150*936/448,150);
+  //image(img,0,0,150*936/448,150);
 }
 
 function toggleVid() {
