@@ -7,25 +7,30 @@ var eff2;
 var w;
 
 let img;
-var opacity;
+var op;
 let col;
 
 var vid;
+let src0;
+let src1;
 
 function preload() {
   vid = createVideo(['https://video.wixstatic.com/video/0d8a8d_a6a91af0b42f4df78d05d178de8bfd88/1080p/mp4/file.mp4']);
   vid.hide();
+  img = createImg('https://static.wixstatic.com/media/0d8a8d_b56f81e3cfdf4578a89acec1c3e74063~mv2.png');
+  img.hide();
   }
 
 function setup() {
+  
   col = color(255,255,255,0);
   
   createMetaTag();
-  button = createButton('CLICK');
+  button = createButton('LICK<br/>LICK<br/>LICK');
   button.style('background-color',col);
   button.style('border-color',col);
   button.style('font-size', '50px');
-  button.style('color', 'magenta');
+  button.style('color', '#8b3888');
   button.position(0,0);
   button.size(window.innerWidth,window.innerHeight);
   button.mousePressed(toggleVid); // attach button listener
@@ -44,8 +49,11 @@ function setup() {
     let data = JSON.parse(message.data);
     if('wind' in data){
       let val = data['wind'];
-      effect.distortion = val;
-      effect.lineSync = val*2;
+      effect.amount = val/2;
+      displacement.mapScale = val/20;
+      shake.amplitudeX = val * 5;
+    shake.amplitudeY = val * 5;
+      shake.rotation = val * 5;
     }
   });
 
@@ -59,43 +67,66 @@ function setup() {
   
   let canvas = createCanvas(window.innerWidth, window.innerHeight, WEBGL);
   canvas.id('p5canvas');  
-  //imageMode(CENTER);
-  
   vid.id('p5video');
+  img.id('p5image');
   vid.elt.setAttribute('playsinline', '');
   vid.speed(1);
   
   seriously = new Seriously();
   
-  let src = seriously.source('#p5video');
+  let src0 = seriously.source('#p5image');
+  let src1 = seriously.source('#p5video');
   let target = seriously.target('#p5canvas');
   
-  var effect = seriously.effect('tvglitch');
-  effect.scanLines = 0;
-  effect.source = src;
-  target.source = effect;
+  op = 1;  
+    
+  var blender = seriously.effect('blend');
+  blender.bottom = src1;
+  blender.top = src0;
+  blender.opacity = op;
+  blender.mode = 'normal';
+    
+  src = blender;
   
-  seriously.go();
+  var effect = seriously.effect('simplex');
+  effect.width = 1080;
+  effect.height = 1920;
+  effect.noiseScale = [5,8];
+  
+  var displacement = seriously.effect('displacement');
+  displacement.map = effect;
+  displacement.source = src;
+    
+  var shake = seriously.transform('camerashake');
+  shake.source = displacement;
+  shake.frequency = 0.1;
+  shake.autoScale = 1;
+  shake.preScale = 0;
+
+  target.source = shake;
+    
+  seriously.go(function (now) {
+  shake.time = now / 1000;
+  effect.time = now / 10;
+  blender.opacity = op;});
 }
 
 function draw() {
-  tint(256,opacity);    
 }
 
 function toggleVid() {
   if (playing) {
     vid.pause();
-    button.html('CLICK');
-    opacity = 256;
+    button.html('LICK<br/>LICK<br/>LICK');
   } else {
     vid.loop();
     vid.hide();
     button.html('');
-    opacity = 0;
+    op = 0;
   }
   playing = !playing;
 }
-
+  
 function createMetaTag() {
   let meta = createElement('meta');
   meta.attribute('name', 'viewport');

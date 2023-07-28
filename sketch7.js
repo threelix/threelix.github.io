@@ -30,7 +30,7 @@ function setup() {
   button.style('background-color',col);
   button.style('border-color',col);
   button.style('font-size', '50px');
-  button.style('color', 'pink');
+  button.style('color', '#05b4c4');
   button.position(0,0);
   button.size(window.innerWidth,window.innerHeight);
   button.mousePressed(toggleVid); // attach button listener
@@ -49,9 +49,11 @@ function setup() {
     let data = JSON.parse(message.data);
     if('wind' in data){
       let val = data['wind'];
-      //change-update
-      effect.distortion = val;
-      effect.lineSync = val*2;
+      effect.amount = val/2;
+      displacement.mapScale = val/20;
+      shake.amplitudeX = val * 5;
+    shake.amplitudeY = val * 5;
+      shake.rotation = val * 5;
     }
   });
 
@@ -65,10 +67,6 @@ function setup() {
   
   let canvas = createCanvas(window.innerWidth, window.innerHeight, WEBGL);
   canvas.id('p5canvas');  
-  //imageMode(CENTER);
-
-  //tint(255, 0);
-  //image(img,0,0);
   vid.id('p5video');
   img.id('p5image');
   vid.elt.setAttribute('playsinline', '');
@@ -79,13 +77,6 @@ function setup() {
   let src0 = seriously.source('#p5image');
   let src1 = seriously.source('#p5video');
   let target = seriously.target('#p5canvas');
-  
-    /*
-  var effect = seriously.effect('tvglitch');
-  effect.scanLines = 0;
-  effect.source = src;
-  target.source = effect;
-  */
   
   op = 1;  
     
@@ -101,64 +92,32 @@ function setup() {
   effect.width = 1080;
   effect.height = 1920;
   effect.noiseScale = [5,8];
-  effect.amount = 0.5; //max 2
-  //effect.octaves = 1;
   
   var displacement = seriously.effect('displacement');
   displacement.map = effect;
-  displacement.mapScale = 0.05;
-  
   displacement.source = src;
-  //target.source = displacement;
     
   var shake = seriously.transform('camerashake');
+  shake.source = displacement;
+  shake.frequency = 0.1;
+  shake.autoScale = 1;
+  shake.preScale = 0;
 
-			//reformat = seriously.transform('reformat');
-			//recenter = seriously.transform('2d');
-
-			// connect all our nodes in the right order
-			//reformat.source = '#p5video';
-			//reformat.width = 1080;
-			//reformat.height = 1920;
-			//reformat.mode = 'cover';
-
-			//recenter.source = reformat;
-			//recenter.translateY = -80;
-
-			//check if recenter is needed
-            //shake.source = recenter;
-            shake.source = displacement;
-			shake.amplitudeX = 5;
-			shake.amplitudeY = 5;
-			shake.frequency = 0.1; //max 0.5
-			shake.rotation = 5; //max 15
-			shake.autoScale = 1;
-			shake.preScale = 0;
-
-			target.source = shake;
+  target.source = shake;
     
-  //seriously.go();
-    
-    seriously.go(function (now) {
-				shake.time = now / 1000;
-                effect.time = now / 10;
-                blender.opacity = op;
-			});
+  seriously.go(function (now) {
+  shake.time = now / 1000;
+  effect.time = now / 10;
+  blender.opacity = op;});
 }
 
 function draw() {
-  //tint(256,opacity);
-  //imageMode(CENTER);
-  //image(img,0,0,150*936/448,150);
-  //tiempo = time();
-  //print(millis());
 }
 
 function toggleVid() {
   if (playing) {
     vid.pause();
     button.html('LICK<br/>LICK<br/>LICK');
-    //op = 1;
   } else {
     vid.loop();
     vid.hide();
@@ -169,9 +128,9 @@ function toggleVid() {
 }
   
 function createMetaTag() {
-	let meta = createElement('meta');
-	meta.attribute('name', 'viewport');
-	meta.attribute('content', 'user-scalable=no,initial-scale=1,maximum-scale=1,minimum-scale=1,width=device-width,height=device-height');
-	let head = select('head');
-	meta.parent(head);
+  let meta = createElement('meta');
+  meta.attribute('name', 'viewport');
+  meta.attribute('content', 'user-scalable=no,initial-scale=1,maximum-scale=1,minimum-scale=1,width=device-width,height=device-height');
+  let head = select('head');
+  meta.parent(head);
 }
