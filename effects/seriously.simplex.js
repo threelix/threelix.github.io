@@ -105,7 +105,7 @@
 					type: 'number',
 					uniform: 'amount',
 					min: 0,
-					defaultValue: 0.5
+					defaultValue: 1
 				},
 				time: {
 					type: 'number',
