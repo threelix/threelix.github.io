@@ -180,7 +180,7 @@
 				type: 'vector',
 				dimensions: 2,
 				uniform: 'mapScale',
-				defaultValue: [1, 1],
+				defaultValue: 0.05,
 				updateSources: true
 			},
 			amount: {
